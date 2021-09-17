@@ -24,6 +24,7 @@ async function server(mode) {
 
 		// settings
 		app.set("view engine", "ejs");
+		app.set("views", path.join(__dirname, "views"));
 	} finally {
 		routes(app);
 	}

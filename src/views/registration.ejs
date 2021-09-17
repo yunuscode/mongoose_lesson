@@ -1,0 +1,40 @@
+<%- include('parts/header') %>
+
+<section class="mt-4">
+	<div class="container">
+		<h1 class="text-center">Registration</h1>
+		<div class="row mt-4 justify-content-center">
+			<div class="col-12 col-lg-6">
+				<form>
+					<input
+						type="text"
+						class="form-control form-control-lg my-3"
+						placeholder="Ismingiz"
+						name="name"
+						required
+					/>
+					<input
+						type="email"
+						class="form-control form-control-lg my-3"
+						placeholder="Emailingiz"
+						name="email"
+						required
+					/>
+					<input
+						type="password"
+						class="form-control form-control-lg my-3"
+						placeholder="Parolingiz"
+						name="password"
+						required
+					/>
+
+					<button class="btn w-100 btn-primary btn-lg">
+						Registration
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+
+<%- include('parts/footer') %>
