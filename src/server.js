@@ -3,8 +3,8 @@ const PORT = process.env.PORT || 8000;
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const databaseMiddleware = require("./middlewares/databaseMiddleware");
 const routes = require("./routes/routes");
+const mongo = require("./modules/mongoose");
 
 async function server(mode) {
 	const app = express();
@@ -16,7 +16,8 @@ async function server(mode) {
 		app.use(express.urlencoded({ extended: true }));
 		app.use(cookieParser());
 		app.use(express.static(path.join(__dirname, "src", "public")));
-		app.use(databaseMiddleware);
+
+		await mongo();
 
 		if (mode == "DEV") {
 			app.use(morgan("dev"));
