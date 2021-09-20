@@ -104,4 +104,9 @@ module.exports = class UserRouteController {
 	static async UserExitGetController(req, res) {
 		res.clearCookie("token").redirect("/");
 	}
+	static async UserProfileGetController(req, res) {
+		res.render("profile", {
+			user: req.user,
+		});
+	}
 };
