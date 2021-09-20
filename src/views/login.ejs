@@ -1,11 +1,14 @@
-<%- include('parts/header') %>
+<%- include('parts/header') %> <% var error%>
 
 <section class="mt-4">
 	<div class="container">
 		<h1 class="text-center">Kirish</h1>
 		<div class="row mt-4 justify-content-center">
 			<div class="col-12 col-lg-6">
-				<form>
+				<% if(error) {%>
+				<div class="alert alert-danger"><%= error%></div>
+				<% } %>
+				<form method="POST">
 					<input
 						type="email"
 						class="form-control form-control-lg my-3"
