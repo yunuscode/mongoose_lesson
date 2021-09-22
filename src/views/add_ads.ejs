@@ -1,0 +1,66 @@
+<%- include('parts/header') %> <% var error%>
+
+<section class="my-4 py-4">
+	<div class="container">
+		<h1 class="text-center">E'lon qo'shish</h1>
+
+		<form class="mt-4" method="POST" enctype="multipart/form-data">
+			<% if(error) {%>
+			<div class="alert alert-danger"><%= error %></div>
+			<% } %>
+			<input
+				type="text"
+				class="form-control form-control-lg"
+				name="title"
+				placeholder="Sarlavha (title)"
+				required
+			/>
+			<select
+				name="category"
+				class="form-select form-select-lg mt-2"
+				required
+			>
+				<% for(let category of categories) {%>
+				<option value="<%= category._id%>"><%= category.name%></option>
+				<%}%>
+			</select>
+			<input
+				type="text"
+				name="price"
+				class="form-control form-control-lg mt-2"
+				placeholder="Narxi"
+				required
+			/>
+
+			<input
+				type="text"
+				name="phone"
+				class="form-control form-control-lg mt-2"
+				placeholder="Raqami"
+				required
+			/>
+
+			<input
+				class="dropzone mt-2 w-100"
+				type="file"
+				name="photos"
+				multiple
+				id="my-great-dropzone"
+				accept=".png, .jpeg, .jpg"
+			/>
+
+			<textarea
+				name="description"
+				id="description"
+				class="form-control form-control-lg mt-2"
+				placeholder="Ta'rif"
+			></textarea>
+
+			<button class="mt-4 btn btn-primary btn-lg w-100">Qo'shish</button>
+		</form>
+	</div>
+</section>
+
+<script></script>
+
+<%- include('parts/footer') %>
