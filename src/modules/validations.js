@@ -40,6 +40,7 @@ module.exports = class Validations {
 				.required()
 				.min(8)
 				.max(128)
+				.trim()
 				.error(new Error("Sarlavhada xato bor.")),
 			price: Joi.number()
 				.min(0)

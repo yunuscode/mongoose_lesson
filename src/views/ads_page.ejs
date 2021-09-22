@@ -1,0 +1,56 @@
+<%- include('parts/header') %> <% var error%>
+
+<section class="my-4 py-4">
+	<div class="container">
+		<h1 class="text-center"><%= ads.title%></h1>
+
+		<div class="card mb-3 mt-4">
+			<div class="row g-0">
+				<div class="col-md-4">
+					<img
+						src="/public/uploads/<%= ads.photos[0]%>"
+						class="img-fluid rounded-start"
+						alt="..."
+					/>
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Xususiyat</th>
+									<th>Qiymat</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Kategoriya</td>
+									<td><%= ads.category_id.name%></td>
+								</tr>
+								<tr>
+									<td>Narxi</td>
+									<td><%= ads.price%> so'm</td>
+								</tr>
+								<tr>
+									<td>Egasi</td>
+									<td>
+										<a href="/users/<%= ads.owner_id._id%>"
+											><%= ads.owner_id.name%></a
+										>
+										<span><%= ads.phone%></span>
+									</td>
+								</tr>
+								<tr>
+									<td>Ta'rifi</td>
+									<td><%= ads.description%></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<%- include('parts/footer') %>

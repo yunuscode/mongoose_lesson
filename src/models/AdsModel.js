@@ -21,11 +21,16 @@ const adsSchema = new mongoose.Schema({
 	photos: [String],
 	category_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Category",
+		ref: "categories",
 	},
-	owner: {
+	owner_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Users",
+		ref: "users",
+	},
+	slug: {
+		type: String,
+		required: true,
+		unique: true,
 	},
 });
 

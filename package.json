@@ -20,7 +20,8 @@
 		"joi": "^17.4.2",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.0.6",
-		"nodemailer": "^6.6.3"
+		"nodemailer": "^6.6.3",
+		"slugify": "^1.6.0"
 	},
 	"devDependencies": {
 		"morgan": "^1.10.0"
