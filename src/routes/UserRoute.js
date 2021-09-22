@@ -15,7 +15,7 @@ router.get("/signup", UserRegistrationGetController);
 router.get("/login", UserLoginGetController);
 router.get("/verify/:id", UserVerifyGetController);
 router.get("/exit", UserExitGetController);
-router.get("/profile", AuthMiddleware, UserProfileGetController);
+router.get("/:id", AuthMiddleware, UserProfileGetController);
 
 router.post("/signup", UserSignUpPostController);
 router.post("/login", UserLoginPostController);

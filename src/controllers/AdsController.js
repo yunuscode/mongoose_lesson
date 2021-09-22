@@ -72,6 +72,7 @@ module.exports = class AdsRouteController {
 
 		res.render("ads_page", {
 			ads: adsOne,
+			user: req.user,
 		});
 	}
 };

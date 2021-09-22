@@ -1,4 +1,5 @@
 const users = require("../models/UserModel");
+const ads = require("../models/AdsModel");
 const { SignUpValidation, LoginValidation } = require("../modules/validations");
 const { generateHash, compareHash } = require("../modules/bcrypt");
 const { email: sendEmail } = require("../modules/email");
@@ -29,9 +30,9 @@ module.exports = class UserRouteController {
 			// 	`<a href="http://localhost:8000/users/verify/${user._id}"/>Tasdiqlash</a>`
 			// );
 
-			console.log(`http://localhost:8000/users/verify/${user._id}`);
+			console.log(`http://10.10.129.48:8000/users/verify/${user._id}`);
 
-			res.redirect("/login");
+			res.redirect("/users/login");
 		} catch (error) {
 			console.log(error);
 			res.render("registration", {
@@ -105,8 +106,27 @@ module.exports = class UserRouteController {
 		res.clearCookie("token").redirect("/");
 	}
 	static async UserProfileGetController(req, res) {
+		const valid = isValidObjectId(req.params?.id);
+
+		if (!valid) {
+			res.redirect("/");
+			return 0;
+		}
+
+		const user = await users.findById(req.params?.id);
+
+		if (!user) {
+			res.redirect("/");
+			return 0;
+		}
+
+		const user_ads = await ads.find({
+			owner_id: user._id,
+		});
+
 		res.render("profile", {
-			user: req.user,
+			user: user,
+			user_ads,
 		});
 	}
 };
