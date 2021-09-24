@@ -5,6 +5,7 @@ const { generateHash, compareHash } = require("../modules/bcrypt");
 const { email: sendEmail } = require("../modules/email");
 const { createToken } = require("../modules/jwt");
 const { isValidObjectId } = require("mongoose");
+const sessions = require("../models/SessionsModel");
 
 module.exports = class UserRouteController {
 	static async UserRegistrationGetController(req, res) {
@@ -89,10 +90,15 @@ module.exports = class UserRouteController {
 			if (!(await compareHash(password, user.password)))
 				throw new Error("Parol xato");
 
+			const session = await sessions.create({
+				owner_id: user._id,
+				user_agent: req.headers["user-agent"],
+			});
+
 			res.cookie(
 				"token",
 				await createToken({
-					id: user._id,
+					session_id: session._id,
 				})
 			).redirect("/");
 		} catch (error) {
