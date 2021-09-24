@@ -1,0 +1,32 @@
+<%- include('parts/header') %>
+
+<section class="m-4 p-4">
+	<div class="container">
+		<h2 class="text-center">Sessiyalar</h2>
+
+		<table class="mt-4 table table-striped">
+			<thead>
+				<tr>
+					<th>User agent</th>
+					<th>Harakatlar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(let session of user_sessions) {%>
+				<tr>
+					<td><%= session.user_agent%></td>
+					<td>
+						<a
+							class="btn btn-danger"
+							href="/users/sessions/delete/<%= session._id%>"
+							>O'chirish</a
+						>
+					</td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<%- include('parts/footer') %>

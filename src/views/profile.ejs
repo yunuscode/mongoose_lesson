@@ -1,8 +1,12 @@
-<%- include('parts/header') %>
+<%- include('parts/header') %> <% var isOwnProfile %>
 
 <section class="m-4 p-4">
 	<div class="container">
-		<h1 class="text-center"><%= user.name %>'s profile</h1>
+		<h1 class="text-center">
+			<%= profile.name %>'s profile <% if(isOwnProfile) {%>
+			<a href="/users/sessions">Sessiyalar</a>
+			<% } %>
+		</h1>
 
 		<div class="row mt-4">
 			<% for(let ads of user_ads) {%>

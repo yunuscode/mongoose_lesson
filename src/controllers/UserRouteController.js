@@ -90,6 +90,11 @@ module.exports = class UserRouteController {
 			if (!(await compareHash(password, user.password)))
 				throw new Error("Parol xato");
 
+			await sessions.deleteMany({
+				owner_id: user._id,
+				user_agent: req.headers["user-agent"],
+			});
+
 			const session = await sessions.create({
 				owner_id: user._id,
 				user_agent: req.headers["user-agent"],
@@ -131,8 +136,44 @@ module.exports = class UserRouteController {
 		});
 
 		res.render("profile", {
-			user: user,
+			user: req.user,
+			profile: user,
+			isOwnProfile: req.user._id.equals(user._id),
 			user_ads,
 		});
+	}
+
+	static async UserSessionsGetController(req, res) {
+		try {
+			const user_sessions = await sessions.find({
+				owner_id: req.user._id,
+			});
+
+			res.render("sessions", {
+				user: req.user,
+				user_sessions,
+			});
+		} catch (error) {
+			console.log(error);
+			res.redirect("/");
+		}
+	}
+
+	static async UserSessionDeleteController(req, res) {
+		try {
+			const session_id = isValidObjectId(req.params?.id);
+
+			if (!session_id) throw new Error("Session id is invalid");
+
+			let x = await sessions.deleteOne({
+				owner_id: req.user._id,
+				_id: req.params?.id,
+			});
+
+			res.redirect("/users/sessions");
+		} catch (error) {
+			console.log(error);
+			res.redirect("/users/sessions");
+		}
 	}
 };
