@@ -1,0 +1,120 @@
+<%- include('parts/header') %>
+
+<section class="m-4 p-4">
+	<div class="container">
+		<p id="receiver_id" class="visually-hidden"><%= receiver._id %></p>
+		<h2 class="text-center">Xabarlar (<%= receiver.name%>)</h2>
+
+		<ul
+			id="messages"
+			class="
+				list-unstyled
+				w-75
+				mx-auto
+				d-flex
+				flex-column
+				align-items-start
+				border border-light border-3
+				p-2
+			"
+			style="max-height: 70vh; overflow: auto"
+		>
+			<% for(let message of chats) {%> <%
+			if(!(user._id.equals(message.owner_id)) ) {%>
+			<li class="d-inline-block p-3 border border-2 border-success my-2">
+				<p class="p-0 m-0"><%= message.message_text %></p>
+			</li>
+			<% } else { %>
+			<li
+				class="
+					d-inline-block
+					p-3
+					border
+					align-self-end
+					border-2 border-primary
+					my-2
+				"
+			>
+				<p class="p-0 m-0"><%= message.message_text %></p>
+			</li>
+			<%} %> <% } %>
+		</ul>
+		<form id="message_form" class="w-75 mx-auto" method="POST">
+			<textarea
+				id="text_area"
+				name="message_text"
+				class="form-control"
+			></textarea>
+			<button class="btn w-100 mt-2 btn-primary">Yuborish</button>
+		</form>
+	</div>
+</section>
+
+<script src="/socket/socket.io.js"></script>
+
+<script>
+	const socket = io();
+
+	socket.emit("new_connection", {
+		token: document.cookie.replace("token=", ""),
+	});
+
+	const form = document.querySelector("#message_form");
+	const text_area = document.querySelector("#text_area");
+	const messages = document.querySelector("#messages");
+	const receiver_id = document.querySelector("#receiver_id").innerText;
+
+	form.addEventListener("submit", async (event) => {
+		event.preventDefault();
+
+		if (text_area.value.length >= 2) {
+			let chat = await send_message(text_area.value);
+
+			const element = `<li
+				class="
+					d-inline-block
+					p-3
+					border
+					align-self-end
+					border-2 border-primary
+					my-2
+				"
+			>
+				<p class="p-0 m-0">${text_area.value}</p>
+			</li>`;
+
+			messages.innerHTML += element;
+
+			messages.scrollTop = messages.scrollHeight;
+		}
+	});
+
+	messages.scrollTop = messages.scrollHeight;
+
+	async function send_message(message_text) {
+		socket.emit("send_message", {
+			message_text,
+			receiver_id: receiver_id,
+		});
+	}
+
+	socket.on("new_message", (data) => {
+		const element = `<li
+				class="
+					d-inline-block
+					p-3
+					border
+					border-2 border-success
+					my-2
+				"
+			>
+				<p class="p-0 m-0">${data}</p>
+			</li>`;
+
+		messages.innerHTML += element;
+
+		messages.scrollTop = messages.scrollHeight;
+	});
+</script>
+
+<%- include('parts/footer') %>

@@ -3,6 +3,7 @@ require("../models/UserModel");
 require("../models/AdsModel");
 require("../models/CategoryModel");
 require("../models/SessionsModel");
+require("../models/MessagesModel");
 
 async function mongo() {
 	try {

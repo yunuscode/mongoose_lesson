@@ -61,4 +61,15 @@ module.exports = class Validations {
 				.pattern(/^998(9[012345789]|6[125679]|7[01234569])[0-9]{7}$/),
 		}).validateAsync(data);
 	}
+
+	static async MessageValidation(data) {
+		return await Joi.object({
+			message_text: Joi.string()
+				.required()
+				.min(2)
+				.max(1024)
+				.trim()
+				.error(new Error("Matnda xato bor.")),
+		}).validateAsync(data);
+	}
 };

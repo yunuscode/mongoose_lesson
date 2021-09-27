@@ -21,7 +21,8 @@
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.0.6",
 		"nodemailer": "^6.6.3",
-		"slugify": "^1.6.0"
+		"slugify": "^1.6.0",
+		"socket.io": "^4.2.0"
 	},
 	"devDependencies": {
 		"morgan": "^1.10.0"
